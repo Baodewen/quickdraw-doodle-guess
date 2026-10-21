@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+.venv-runtime/
+venv/
+env/
+
+# IDEs / editors
+.vscode/
+.idea/
+.pytest_cache/
+.mypy_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Trained model & artifacts (regenerate with download_quickdraw.py + train.py)
+artifacts/model.pt
+artifacts/figures/
+artifacts/quickdraw_npy/
+artifacts/split_indices.npz
+
+# Frontend build output & dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/static/
+frontend/index.html
+
+# Third-party assets (download separately, see frontend/public/static/sketch-rnn/THIRD_PARTY.md)
+frontend/public/static/models/
+
+# User-provided easter-egg media (copyrighted, not for redistribution)
+frontend/public/static/nailong/
+
+# Archives & local screenshots
+*.zip
+
+# Local API credentials (AI beautification)
+.env
+.env.*
+backend/.xais-token

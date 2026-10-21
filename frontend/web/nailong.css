@@ -1,0 +1,497 @@
+/* Nailong easter egg. The outline and media are overlays inside the main
+   drawing surface; the canvas underneath remains the only input surface. */
+.heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.nailong-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  padding: 6px 14px;
+  border: 1px solid var(--gold);
+  border-radius: 99px;
+  background: transparent;
+  color: var(--gold);
+  font-family: var(--serif-cjk);
+  font-size: 13px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color .45s var(--ease), border-color .45s;
+}
+
+.nailong-trigger::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+  transform: translateY(101%);
+  transition: transform .5s var(--ease);
+}
+
+.nailong-trigger:hover,
+.nailong-trigger.is-active {
+  color: var(--gold-soft);
+  border-color: var(--ink);
+}
+
+.nailong-trigger:hover::before,
+.nailong-trigger.is-active::before {
+  transform: translateY(0);
+}
+
+.nailong-trigger svg {
+  transition: transform .8s var(--ease);
+}
+
+.nailong-trigger:hover svg,
+.nailong-trigger.is-active svg {
+  transform: rotate(180deg);
+}
+
+.drawing-tools :disabled {
+  opacity: .38;
+  cursor: not-allowed;
+}
+
+.nailong-mode-bar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 20px;
+  padding: 16px 18px 14px;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.nailong-mode-bar::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid #d8c39a40;
+  pointer-events: none;
+}
+
+.nailong-mode-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+.nailong-mode-title {
+  font-family: 'Cormorant Garamond', var(--serif-cjk);
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--gold-soft);
+  white-space: nowrap;
+}
+
+.nailong-mode-status {
+  display: inline-block;
+  min-width: 0;
+  font-family: var(--serif-cjk);
+  font-size: 13px;
+  color: #f4efe4cc;
+  line-height: 1.5;
+}
+
+.nailong-status-dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f4efe455;
+}
+
+.nailong-status-dot.is-active {
+  background: var(--gold-soft);
+  animation: nailong-dot 1.6s ease-in-out infinite;
+}
+
+.nailong-eye-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--gold-soft);
+  white-space: nowrap;
+}
+
+.nailong-eye-count i {
+  font-style: normal;
+  color: #f4efe455;
+}
+
+.eye-pip {
+  width: 8px;
+  height: 8px;
+  margin-right: 2px;
+  border: 1px solid var(--gold-soft);
+  transform: rotate(45deg);
+  transition: background .4s var(--ease), transform .5s var(--ease);
+}
+
+.eye-pip.on {
+  background: var(--gold-soft);
+  transform: rotate(225deg) scale(1.15);
+}
+
+.nailong-mode-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nailong-mode-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 5px 14px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  font-family: var(--serif-cjk);
+  font-size: 12.5px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .35s var(--ease), color .35s var(--ease), border-color .35s;
+}
+
+.nailong-mode-primary {
+  border-color: var(--gold-soft);
+  background: var(--gold-soft);
+  color: var(--ink);
+}
+
+.nailong-mode-primary:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+}
+
+.nailong-mode-secondary {
+  border-color: #f4efe455;
+  background: transparent;
+  color: var(--paper);
+}
+
+.nailong-mode-secondary:hover {
+  border-color: var(--paper);
+  background: #f4efe414;
+}
+
+.nailong-mode-quiet {
+  background: transparent;
+  color: #f4efe4aa;
+  text-decoration: underline;
+  text-decoration-color: #f4efe440;
+  text-underline-offset: 5px;
+}
+
+.nailong-mode-quiet:hover {
+  color: var(--gold-soft);
+  text-decoration-color: var(--gold-soft);
+}
+
+.nailong-mode-hint {
+  margin: 0;
+  font-family: var(--serif-cjk);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #f4efe499;
+}
+
+.nailong-restore-note {
+  color: var(--gold-soft);
+}
+
+/* The outline sits above the real canvas so the user's eye ink remains the
+   real recorded stroke while the Nailong line art never enters useDrawing. */
+.nailong-board-art {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+
+.nailong-outline path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.nailong-board-art.is-prepared .nailong-outline path {
+  opacity: 1;
+}
+
+.canvas-surface[data-nailong-phase="alive"] .nailong-board-art {
+  opacity: 0;
+}
+
+.canvas-surface.is-nailong-fallback[data-nailong-phase="alive"] .nailong-board-art {
+  opacity: 0.94;
+  animation: nailong-breathe 3.4s ease-in-out infinite;
+}
+
+.nailong-eye-guide {
+  fill: rgba(233, 120, 88, 0.07);
+  stroke: #c08a70;
+  stroke-width: 1.1;
+  stroke-dasharray: 1.4 1.6;
+  opacity: 0.8;
+  animation: nailong-guide-pulse 2.6s ease-in-out infinite;
+}
+
+.nailong-eye-guide.is-done {
+  fill: rgba(44, 124, 115, 0.14);
+  stroke: var(--teal);
+  stroke-width: 1.2;
+  stroke-dasharray: none;
+  opacity: 0.7;
+  animation: none;
+}
+
+.canvas-surface[data-nailong-phase="waking"] .nailong-eye-guide.is-done {
+  animation: nailong-eye-flash 0.45s ease-out;
+}
+
+/* Media matches the 3:4 Nailong frame: 75% wide, full height, centred. */
+.nailong-board-media {
+  position: absolute;
+  top: 0;
+  left: 12.5%;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 75%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  animation: nailong-media-in 0.42s ease-out 0.26s forwards;
+}
+
+.nailong-media-glow {
+  position: absolute;
+  width: 66%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(233, 120, 88, 0.2) 0%, rgba(233, 120, 88, 0.07) 45%, transparent 70%);
+  filter: blur(4px);
+  animation: nailong-glow 3.6s ease-in-out infinite;
+}
+
+.nailong-fallback {
+  position: relative;
+  width: 92%;
+  height: 92%;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 16px rgba(64, 52, 36, 0.16)) saturate(1.05);
+  animation: nailong-bob 3.4s ease-in-out infinite;
+}
+
+.nailong-board-media.is-media-ready .nailong-fallback {
+  animation: none;
+}
+
+.nailong-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nailong-media.is-visible {
+  opacity: 1;
+}
+
+.nailong-sparkles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.nailong-sparkles span {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--coral);
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  opacity: 0;
+  animation: nailong-sparkle 2.8s ease-in-out infinite;
+}
+
+.nailong-sparkles span:nth-child(1) {
+  top: 17%;
+  left: 15%;
+  animation-delay: 0.1s;
+}
+
+.nailong-sparkles span:nth-child(2) {
+  top: 12%;
+  right: 18%;
+  width: 5px;
+  height: 5px;
+  animation-delay: 0.9s;
+}
+
+.nailong-sparkles span:nth-child(3) {
+  top: 42%;
+  left: 9%;
+  width: 5px;
+  height: 5px;
+  background: var(--teal);
+  animation-delay: 1.5s;
+}
+
+.nailong-sparkles span:nth-child(4) {
+  top: 38%;
+  right: 8%;
+  animation-delay: 0.5s;
+}
+
+.nailong-sparkles span:nth-child(5) {
+  bottom: 17%;
+  left: 18%;
+  width: 5px;
+  height: 5px;
+  background: var(--teal);
+  animation-delay: 1.9s;
+}
+
+.nailong-sparkles span:nth-child(6) {
+  right: 20%;
+  bottom: 14%;
+  width: 6px;
+  height: 6px;
+  animation-delay: 2.4s;
+}
+
+@keyframes nailong-guide-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes nailong-eye-flash {
+  0% { stroke-width: 1.1; opacity: 0.6; }
+  45% { stroke-width: 2.7; opacity: 1; }
+  100% { stroke-width: 1.2; opacity: 0.75; }
+}
+
+@keyframes nailong-media-in {
+  to { opacity: 1; }
+}
+
+@keyframes nailong-bob {
+  0%, 100% { transform: translateY(0) rotate(-0.8deg); }
+  50% { transform: translateY(-2.2%) rotate(0.8deg); }
+}
+
+@keyframes nailong-glow {
+  0%, 100% { transform: scale(0.94); opacity: 0.8; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+@keyframes nailong-sparkle {
+  0%, 100% { opacity: 0; transform: translateY(4px) scale(0.5) rotate(0deg); }
+  35% { opacity: 0.9; transform: translateY(-3px) scale(1) rotate(25deg); }
+  65% { opacity: 0.45; transform: translateY(-8px) scale(0.7) rotate(45deg); }
+}
+
+@keyframes nailong-dot {
+  0%, 100% { opacity: 0.5; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+@keyframes nailong-breathe {
+  0%, 100% { opacity: 0.82; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 460px) {
+  .nailong-trigger {
+    padding: 7px 9px;
+  }
+
+  .nailong-trigger-label {
+    display: none;
+  }
+
+  .nailong-mode-bar {
+    padding: 14px 14px 12px;
+  }
+
+  .nailong-mode-head {
+    gap: 6px;
+  }
+
+  .nailong-mode-status {
+    flex: 1 1 100%;
+    order: 3;
+    font-size: 12px;
+  }
+
+  .nailong-eye-count {
+    margin-left: auto;
+  }
+
+  .nailong-mode-button {
+    flex: 1 1 auto;
+    min-height: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nailong-board-art,
+  .nailong-media,
+  .nailong-board-media,
+  .nailong-fallback,
+  .nailong-media-glow,
+  .nailong-sparkles span,
+  .nailong-eye-guide,
+  .nailong-status-dot,
+  .nailong-mode-button,
+  .nailong-trigger {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .nailong-board-media {
+    opacity: 1;
+  }
+
+  .nailong-sparkles,
+  .nailong-media-glow {
+    display: none;
+  }
+
+  .canvas-surface.is-nailong-fallback[data-nailong-phase="alive"] .nailong-board-art {
+    animation: none !important;
+  }
+}
