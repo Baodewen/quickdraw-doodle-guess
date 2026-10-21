@@ -32,9 +32,6 @@ frontend/dist/
 frontend/static/
 frontend/index.html
 
-# User-provided easter-egg media (copyrighted, not for redistribution)
-frontend/public/static/nailong/
-
 # Archives & local screenshots
 *.zip
 

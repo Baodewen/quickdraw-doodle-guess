@@ -182,14 +182,13 @@ python download_quickdraw.py && python train.py
 
 ## 8. 已包含与需自行补齐的资产
 
-模型权重已随仓库提供：CNN 权重 `artifacts/model.pt`、7 个 SketchRNN 模型（`frontend/public/static/models/sketch-rnn/`）与训练图表 `artifacts/figures/`，克隆后即可直接运行演示。
+模型权重与演示素材已随仓库提供：CNN 权重 `artifacts/model.pt`、7 个 SketchRNN 模型（`frontend/public/static/models/sketch-rnn/`）、训练图表 `artifacts/figures/`，以及奶龙演示素材（`frontend/public/static/nailong/`，版权归原 IP 方，仅供学习演示），克隆后即可直接运行演示。
 
 以下内容未包含，按需自行获取：
 
 | 资产 | 位置 | 补齐方式 |
 |---|---|---|
 | 训练数据 | `artifacts/quickdraw_npy/*.npy` | `python download_quickdraw.py` |
-| 奶龙静帧/参考图/动图 | `frontend/public/static/nailong/` | 用户自备（版权内容，未随仓库分发）；`nailong-still.webp` 静帧、`nailong-reference.webp` 参考图、`nailong-alive.mp4`（H.264、3:4、静音循环） |
 | 前端依赖 | `frontend/node_modules/` | `cd frontend && npm install` |
 | Python 环境 | `.venv-runtime/` | `pip install -r requirements.txt` |
 

@@ -159,9 +159,9 @@ Worker 从同源路径 `/static/sketch-rnn/worker.js` 加载，旧版 SketchRNN 
 - 奶龙线稿是主画板之上的 `pointer-events: none` SVG 叠加层，不会写入 `useDrawing`，因此不会进入 CNN 输入、PNG/JSON 导出或续画数据。眼睛笔迹使用真实主画板画笔，但只属于本次彩蛋，退出时丢弃。
 - 奶龙模式期间暂停 CNN 识别轮询、隐藏续画面板，并暂时隐藏导出与清空按钮，避免导出只有眼睛的空白图或误删保存的原画。
 
-### 放入动画素材
+### 动画素材
 
-在 `frontend/public/static/nailong/` 放入以下任意一个文件；同名文件按顺序优先探测：
+仓库已内置奶龙素材（`nailong-alive.mp4`、`nailong-still.webp`、`nailong-reference.webp`），构建后即可播放。若要替换为自己的素材，在 `frontend/public/static/nailong/` 放入以下任意一个文件；同名文件按顺序优先探测：
 
 | 顺序 | 文件名 | 类型 |
 | --- | --- | --- |
@@ -181,7 +181,7 @@ npm run build
 
 未放置动图、探测失败或解码失败时，会回退到 `nailong-still.webp` 静帧（轻晃）；静帧也不可用时保留轮廓并做呼吸动画，不会出现破图。开启“减少动态效果”时，描边直接完成，静帧不晃动，也不会自动播放动图，需要点击「播放动画」手动开始。
 
-`nailong-reference.webp` 与 `nailong-still.webp` 由用户提供的奶龙图片提取，仅用于本地课程演示，请勿商用。后端在 `backend/main.py` 中注册了 `.webp` MIME 类型，避免 Windows 下静态资源被当作 `text/plain` 返回。
+奶龙相关素材（`nailong-alive.mp4`、`nailong-reference.webp`、`nailong-still.webp`）由用户提供的奶龙图片/视频提取，仅用于课程学习演示，请勿商用。后端在 `backend/main.py` 中注册了 `.webp` MIME 类型，避免 Windows 下静态资源被当作 `text/plain` 返回。
 
 ## AI 美化（服务端代理）
 
