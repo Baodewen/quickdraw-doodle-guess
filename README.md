@@ -9,7 +9,7 @@ Users draw on a browser canvas, and the backend preprocesses the sketch into a `
 - Browser-based drawing board with mouse and touch support
 - FastAPI backend for health check, class list, and prediction APIs
 - PyTorch CNN model trained on 20 QuickDraw classes
-- Reproducible CNN model (see Retraining below)
+- Included trained model for quick local demo
 - Vue 3 前端支持逐笔记录、按顺序重绘，以及 PNG 和笔画 JSON 导出
 - 学号和姓名初始为空，可编辑并保存在本机，刷新后恢复
 - 第二阶段加入真实 SketchRNN 本地续画：三候选虚线预览、温度调节、快捷键选择与采纳
@@ -312,6 +312,6 @@ Current metrics from `artifacts/metrics.json`:
 
 ## Notes
 
-- The trained model is not bundled in this repo; retrain it locally (see Retraining)
+- The trained model is included for demo use
 - Raw training data is intentionally excluded from GitHub
 - The current frontend uses `frontend/`, not the old `templates/` or root `static/`

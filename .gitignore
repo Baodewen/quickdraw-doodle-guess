@@ -22,9 +22,7 @@ env/
 Thumbs.db
 *.log
 
-# Trained model & artifacts (regenerate with download_quickdraw.py + train.py)
-artifacts/model.pt
-artifacts/figures/
+# Raw training data only (too large for a normal repo; regenerate with download_quickdraw.py)
 artifacts/quickdraw_npy/
 artifacts/split_indices.npz
 
@@ -33,9 +31,6 @@ frontend/node_modules/
 frontend/dist/
 frontend/static/
 frontend/index.html
-
-# Third-party assets (download separately, see frontend/public/static/sketch-rnn/THIRD_PARTY.md)
-frontend/public/static/models/
 
 # User-provided easter-egg media (copyrighted, not for redistribution)
 frontend/public/static/nailong/
